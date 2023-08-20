@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user');
+const { NotFoundError, TokenError } = require('../middlwares/errors');
 
 // возвращает информацию о пользователе
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(() => new Error('Пользователь не найден'))
+    .orFail(() => new NotFoundError('Пользователь не найден'))
     .then((user) => res.status(200).send(user))
     .catch(next);
 };
@@ -15,7 +16,7 @@ const updateUser = (req, res, next) => {
   const { name } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name }, { new: true, runValidators: true })
-    .orFail(() => new Error('Пользователь не найден'))
+    .orFail(() => new NotFoundError('Пользователь не найден'))
     .then((user) => res.status(200).send(user))
     .catch(next);
 };
@@ -40,7 +41,7 @@ const login = (req, res, next) => {
 
   User.findOne({ email })
     .select('+password')
-    .orFail(() => new Error('Пользователь не найден.'))
+    .orFail(() => new TokenError('Пользователь не найден.'))
     .then((user) => {
       bcrypt.compare(String(password), user.password).then((validUser) => {
         if (validUser) {
@@ -51,7 +52,7 @@ const login = (req, res, next) => {
           );
           res.send({ data: user.toJSON(), token });
         } else {
-          next(new Error('Неправильная почта или пароль.'));
+          next(new TokenError('Неправильная почта или пароль.'));
         }
       });
     })

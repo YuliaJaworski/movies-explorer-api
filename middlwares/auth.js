@@ -1,14 +1,15 @@
 const jsonwebtoken = require('jsonwebtoken');
+const { TokenError } = require('./errors');
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    next(new Error('Необходимо авторизоваться.'));
+    next(new TokenError('Необходимо авторизоваться.'));
     return;
   }
 
-  const token = authorization.replace('Bearer', '');
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
@@ -17,11 +18,11 @@ const auth = (req, res, next) => {
       'SECRET',
     );
   } catch (e) {
-    next(new Error('необходима авторизация'));
+    next(new TokenError('необходима авторизация'));
     return;
   }
 
-  req.user = payload; // записываем пейлоуд в объект запроса
+  req.user = payload;
 
   next();
 };

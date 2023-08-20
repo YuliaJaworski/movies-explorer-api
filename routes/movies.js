@@ -4,11 +4,12 @@ const {
   createMovie,
   deleteMovieById,
 } = require('../controllers/movies');
+const { validateMovie, validateMovieId } = require('../middlwares/joiValidater');
 
 routerMovie.get('/movies', getMovies);
 
-routerMovie.post('/movies', createMovie);
+routerMovie.post('/movies', validateMovie, createMovie);
 
-routerMovie.delete('/movies/:id', deleteMovieById);
+routerMovie.delete('/movies/:id', validateMovieId, deleteMovieById);
 
 module.exports = routerMovie;
