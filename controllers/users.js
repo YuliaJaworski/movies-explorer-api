@@ -3,10 +3,12 @@ const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user');
 const { NotFoundError, TokenError } = require('../middlwares/errors');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 // возвращает информацию о пользователе
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(() => new NotFoundError('Пользователь не найден'))
+    .orFail(() => new NotFoundError('Пользователь не найден.'))
     .then((user) => res.status(200).send(user))
     .catch(next);
 };
@@ -16,7 +18,7 @@ const updateUser = (req, res, next) => {
   const { name } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name }, { new: true, runValidators: true })
-    .orFail(() => new NotFoundError('Пользователь не найден'))
+    .orFail(() => new NotFoundError('Пользователь не найден.'))
     .then((user) => res.status(200).send(user))
     .catch(next);
 };
@@ -47,10 +49,13 @@ const login = (req, res, next) => {
         if (validUser) {
           const token = jsonwebtoken.sign(
             { _id: user._id },
-            'SECRET',
+            NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
             { expiresIn: '7d' },
           );
-          res.send({ data: user.toJSON(), token });
+          res.send({
+            data: user.toJSON(),
+            token,
+          });
         } else {
           next(new TokenError('Неправильная почта или пароль.'));
         }

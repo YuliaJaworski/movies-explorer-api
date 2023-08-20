@@ -1,6 +1,4 @@
-[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)
-
-# Проект Mesto фронтенд + бэкенд
+# Проект Movies бэкенд
 
 ## Директории
 
@@ -15,11 +13,10 @@
 `npm run start` — запускает сервер  
 `npm run dev` — запускает сервер с hot-reload
 
-### Доработка проекта
+## Ссылки на проект
 
-Проект находится на этапе разработки. Будут добавлены:
+IP
 
-- авторизация;
-- централизированная обработка ошибок и валидация приходящих на сервер данных.
+Backend
 
-[Ссылка на репозиторий](https://github.com/YuliaJaworski/express-mesto-gha)
+[Ссылка на репозиторий]()
