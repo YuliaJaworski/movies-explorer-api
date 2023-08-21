@@ -1,3 +1,4 @@
+const { NotFoundError, ForbiddenError } = require('../middlwares/errors');
 const Movie = require('../models/movie');
 
 // возвращает сохраненные пользователем фильмы
@@ -16,7 +17,7 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     movieId,
@@ -30,12 +31,12 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
-    thumbnail,
     movieId,
-    owner: req.user.id,
+    thumbnail,
+    owner: req.user._id,
   })
     .then((movie) => res.status(201).send(movie))
     .catch(next);
@@ -44,11 +45,11 @@ const createMovie = (req, res, next) => {
 // удаляет сохраненный фильм по id
 const deleteMovieById = (req, res, next) => {
   Movie.findById(req.params.id)
-    .orFail(() => new Error('Фильм с указанным id не найден'))
+    .orFail(() => new NotFoundError('Фильм с указанным id не найден'))
     .then((movie) => {
       // проверить возможность удаления фильма
-      if (movie.owner.toString() !== req.user.id) {
-        throw new Error('Вы не можете удалить этот фильм');
+      if (movie.owner.toString() !== req.user._id) {
+        throw new ForbiddenError('Вы не можете удалить этот фильм');
       }
 
       // удалить фильм

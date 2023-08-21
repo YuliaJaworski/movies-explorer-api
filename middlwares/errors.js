@@ -53,6 +53,7 @@ const error = (err, req, res, next) => {
     trueError = new BadRequestError('Переданы некорректные данные');
   } else if (err.name === 'ValidationError') {
     trueError = new BadRequestError('Переданы некорректные данные');
+    console.log(err);
   } else if (err.name === 'JsonWebTokenError') {
     trueError = new TokenError('Неверный токен');
   } else if (err.code === 11000) {
