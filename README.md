@@ -15,8 +15,6 @@
 
 ## Ссылки на проект
 
-IP
+IP 158.160.114.79
 
-Backend
-
-[Ссылка на репозиторий]()
+Backend https://api.movies-explorer-jj.nomoredomainsicu.ru/
