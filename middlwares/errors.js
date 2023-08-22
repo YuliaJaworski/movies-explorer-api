@@ -1,9 +1,9 @@
-const { TokenError } = require('../errors/TokenError');
-const { ForbiddenError } = require('../errors/ForbiddenError');
-const { BadRequestError } = require('../errors/BadRequestError');
-const { ConflictError } = require('../errors/ConflictError');
-const { NotFoundError } = require('../errors/NotFoundError');
-const { ServerError } = require('../errors/ServerError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const BadRequestError = require('../errors/BadRequestError');
+const ConflictError = require('../errors/ConflictError');
+const NotFoundError = require('../errors/NotFoundError');
+const ServerError = require('../errors/ServerError');
+const TokenError = require('../errors/TokenError');
 
 const error = (err, req, res, next) => {
   let trueError;

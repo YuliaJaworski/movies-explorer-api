@@ -37,5 +37,5 @@ app.use(errors()); // celebrate
 app.use(error); // middlewares
 
 app.listen(PORT, () => {
-  console.log('Слушаю 3000 порт');
+  console.log(`Слушаю ${PORT} порт`);
 });
