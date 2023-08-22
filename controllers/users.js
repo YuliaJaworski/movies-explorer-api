@@ -3,8 +3,9 @@ const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user');
 const { NotFoundError } = require('../errors/NotFoundError');
 const { TokenError } = require('../errors/TokenError');
+const { NODE_ENV, JWT_SECRET } = require('../config');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+// const { NODE_ENV, JWT_SECRET } = process.env;
 
 // возвращает информацию о пользователе
 const getUser = (req, res, next) => {
@@ -16,9 +17,9 @@ const getUser = (req, res, next) => {
 
 // изменяет информацию о пользователе
 const updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
 
-  User.findByIdAndUpdate(req.user._id, { name }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .orFail(() => new NotFoundError('Пользователь не найден.'))
     .then((user) => res.status(200).send(user))
     .catch(next);

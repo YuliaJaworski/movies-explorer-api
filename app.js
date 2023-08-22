@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -11,10 +12,11 @@ const { error } = require('./middlwares/errors');
 const { NotFoundError } = require('./errors/NotFoundError');
 const { validateUser, validateLogin } = require('./middlwares/joiValidater');
 const { errorLogger, requestLogger } = require('./middlwares/logger');
+const { PORT, dataMovies } = require('./config');
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(dataMovies, {
   useNewUrlParser: true,
 });
 
@@ -34,6 +36,6 @@ app.use(errorLogger); // logger
 app.use(errors()); // celebrate
 app.use(error); // middlewares
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Слушаю 3000 порт');
 });

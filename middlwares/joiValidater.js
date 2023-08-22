@@ -48,6 +48,13 @@ const validateUpdateInfo = celebrate({
         'string.min': 'Минимальная длина поля - 2',
         'string.max': 'Минимальная длина поля - 30',
       }),
+    email: Joi.string()
+      .required()
+      .email()
+      .message('Поле "email" должно быть валидным email-адресом')
+      .messages({
+        'string.empty': 'Поле "email" должно быть заполнено',
+      }),
   }),
 });
 
