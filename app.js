@@ -7,7 +7,8 @@ const routerUser = require('./routes/users');
 const routerMovie = require('./routes/movies');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlwares/auth');
-const { error, NotFoundError } = require('./middlwares/errors');
+const { error } = require('./middlwares/errors');
+const { NotFoundError } = require('./errors/NotFoundError');
 const { validateUser, validateLogin } = require('./middlwares/joiValidater');
 const { errorLogger, requestLogger } = require('./middlwares/logger');
 

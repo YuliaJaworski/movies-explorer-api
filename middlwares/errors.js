@@ -1,44 +1,9 @@
-class BadRequestError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 400;
-  }
-}
-
-class TokenError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 401;
-  }
-}
-
-class ForbiddenError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 403;
-  }
-}
-
-class NotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 404;
-  }
-}
-
-class ConflictError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 409;
-  }
-}
-
-class ServerError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = 500;
-  }
-}
+const { TokenError } = require('../errors/TokenError');
+const { ForbiddenError } = require('../errors/ForbiddenError');
+const { BadRequestError } = require('../errors/BadRequestError');
+const { ConflictError } = require('../errors/ConflictError');
+const { NotFoundError } = require('../errors/NotFoundError');
+const { ServerError } = require('../errors/ServerError');
 
 const error = (err, req, res, next) => {
   let trueError;
@@ -68,8 +33,5 @@ const error = (err, req, res, next) => {
 };
 
 module.exports = {
-  NotFoundError,
-  TokenError,
-  ForbiddenError,
   error,
 };
