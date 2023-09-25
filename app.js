@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(requestLogger);
 
-app.use(router);
+app.use('/api', router);
 
 app.use(errorLogger); // logger
 app.use(errors()); // celebrate
