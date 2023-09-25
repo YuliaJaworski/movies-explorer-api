@@ -15,7 +15,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3001', 'https://movies-explorer-jj.nomoredomainsicu.ru/'],
+    origin: ['http://localhost:3001', 'https://movies-explorer-jj.nomoredomainsrocks.ru'],
   }),
 );
 
