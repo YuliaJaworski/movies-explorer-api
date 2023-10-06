@@ -1,5 +1,5 @@
-const { NotFoundError } = require('../errors/NotFoundError');
-const { ForbiddenError } = require('../errors/ForbiddenError');
+const NotFoundError = require('../errors/NotFoundError');
+const ForbiddenError = require('../errors/ForbiddenError');
 const Movie = require('../models/movie');
 
 // возвращает сохраненные пользователем фильмы
